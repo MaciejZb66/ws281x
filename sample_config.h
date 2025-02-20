@@ -8,10 +8,15 @@
 //#define STM_FAMILY_G7
 //#define STM_FAMILY_L0
 //#define STM_FAMILY_L1
-//#define STM_FAMILY_L4
+#define STM_FAMILY_L4
 //#define STM_FAMILY_L7
 
+//#define WS_TIM_1
+//#define WS_TIM_2
+//#define WS_TIM_3
+//#define WS_TIM_4
 #define WS_TIM_15
+//#define WS_TIM_16
 
 #define user_leds 24
 #define pwm_zero 32

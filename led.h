@@ -1,49 +1,54 @@
 #include <stdio.h>
 #include <stdint.h>
-#include "sample_config.h"
+
+#ifndef WS_CONFIG
+    #include "sample_config.h"
+#endif
+
 #ifdef STM_FAMILY_F0
-    #include "stm32f0xx.h"
+    #include "stm32f0xx_hal.h"
 #elif defined STM_FAMILY_F1
-    #include "stm32f1xx.h"
+    #include "stm32f1xx_hal.h"
 #elif defined STM_FAMILY_F4
-    #include "stm32f4xx.h"
+    #include "stm32f4xx_hal.h"
 #elif defined STM_FAMILY_F7
-    #include "stm32f7xx.h"
+    #include "stm32f7xx_hal.h"
 #elif defined STM_FAMILY_G0
-    #include "stm32g0xx.h"
+    #include "stm32g0xx_hal.h"
 #elif defined STM_FAMILY_G1
-    #include "stm32g1xx.h"
+    #include "stm32g1xx_hal.h"
 #elif defined STM_FAMILY_G4
-    #include "stm32g4xx.h"
+    #include "stm32g4xx_hal.h"
 #elif defined STM_FAMILY_G7
-    #include "stm32g7xx.h"
+    #include "stm32g7xx_hal.h"
 #elif defined STM_FAMILY_L0
-    #include "stm32l0xx.h"
+    #include "stm32l0xx_hal.h"
 #elif defined STM_FAMILY_L1
-    #include "stm32l1xx.h"
+    #include "stm32l1xx_hal.h"
 #elif defined STM_FAMILY_L4
-    #include "stm32l4xx.h"
+    #include "stm32l4xx_hal.h"
 #elif defined STM_FAMILY_L7
-    #include "stm32l7xx.h"
+    #include "stm32l7xx_hal.h"
 #else
     #pragma message "Unsupported STM family"
 #endif
 
 #ifdef WS_TIM_1
     #define WS_tim &htim1
-#elif WS_TIM_2
+#elif defined WS_TIM_2
     #define WS_tim &htim2
-#elif WS_TIM_3
+#elif defined WS_TIM_3
     #define WS_tim &htim3
-#elif WS_TIM_4
+#elif defined WS_TIM_4
     #define WS_tim &htim4
-#elif WS_TIM_15
+#elif defined WS_TIM_15
     #define WS_tim &htim15
-#elif WS_TIM_16
+#elif defined WS_TIM_16
     #define WS_tim &htim16
 #else
     #pragma message "NO TIMER CHOSEN"
 #endif
+
 
 const uint8_t gamma8[] = {
 	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -100,6 +105,7 @@ const uint8_t reverse_min_gamma8[] = {
 	243, 244, 244, 244, 245, 245, 245, 246, 246, 247, 247, 247, 248, 248, 248, 249,
 	249, 250, 250, 250, 251, 251, 251, 252, 252, 253, 253, 253, 254, 254, 254, 255,
 };
+
 void set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
