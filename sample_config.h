@@ -1,3 +1,5 @@
+#pragma once
+
 //#define STM_FAMILY_F0
 //#define STM_FAMILY_F1
 //#define STM_FAMILY_F4
