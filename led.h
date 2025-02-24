@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdint.h>
+#include "tim.h"
 
 #ifndef WS_CONFIG
     #include "sample_config.h"
@@ -49,8 +50,6 @@
 #else
     #pragma message "NO TIMER CHOSEN"
 #endif
-
-
 
 
 void set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
