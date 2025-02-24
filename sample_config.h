@@ -21,6 +21,3 @@
 //#define WS_TIM_16
 
 #define user_leds 24
-#define pwm_zero 32
-#define pwm_one 70
-#define reset_signal 224

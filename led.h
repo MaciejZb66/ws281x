@@ -37,23 +37,33 @@
 
 #ifdef WS_TIM_1
     #define WS_tim &htim1
+	#define CP htim1.Init.Period
 #elif defined WS_TIM_2
     #define WS_tim &htim2
+	#define CP htim2.Init.Period
 #elif defined WS_TIM_3
     #define WS_tim &htim3
+	#define CP htim3.Init.Period
 #elif defined WS_TIM_4
     #define WS_tim &htim4
+	#define CP htim4.Init.Period
 #elif defined WS_TIM_15
     #define WS_tim &htim15
+	#define CP htim15.Init.Period
 #elif defined WS_TIM_16
     #define WS_tim &htim16
+	#define CP htim16.Init.Period
 #else
     #pragma message "NO TIMER CHOSEN"
 #endif
 
+#define pwm_zero (CP* 32 / 100)     // 32% time +-12%
+#define pwm_one (CP * 64 / 100)     // 64% time +-12%
+#define reset_signal 224
 
-void set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
-void set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
-void set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
-void set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value);
+
+void WS281x_set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
+void WS281x_set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
+void WS281x_set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
+void WS281x_set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value);
 void WS281x_send_data(void);

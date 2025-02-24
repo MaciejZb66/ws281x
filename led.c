@@ -60,21 +60,21 @@ uint8_t LED_info[user_leds][4];
 uint16_t pwm_Data[reset_signal + (24 * user_leds)];
 uint8_t dataflag;
 
-void set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
+void WS281x_set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
 	LED_info[led_num][0] = led_num;
 	LED_info[led_num][1] = red;
 	LED_info[led_num][2] = green;
 	LED_info[led_num][3] = blue;
 }
 
-void set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
+void WS281x_set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
 	LED_info[led_num][0] = led_num;
 	LED_info[led_num][1] = gamma8[red];
 	LED_info[led_num][2] = gamma8[green];
 	LED_info[led_num][3] = gamma8[blue];
 }
 
-void set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness){
+void WS281x_set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness){
 	brightness %= 101;
 	red = red * 100 / brightness;
 	green = green * 100 / brightness;
@@ -84,7 +84,8 @@ void set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t 
 	LED_info[led_num][2] = gamma8[green];
 	LED_info[led_num][3] = gamma8[blue];
 }
-void set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value){
+
+void WS281x_set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value){
 	float h, s, v, f, p, q, t;
 	uint8_t red, green, blue;
 	h = (float)hue / 255;
@@ -127,7 +128,7 @@ void set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value){
 		blue = (uint8_t)(q * 255);
 		break;
 	}
-	set_leds(led, gamma8[red], gamma8[green], gamma8[blue]);
+	WS281x_set_leds(led, gamma8[red], gamma8[green], gamma8[blue]);
 }
 
 void WS281x_send_data(void){
