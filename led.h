@@ -57,6 +57,22 @@
     #pragma message "NO TIMER CHOSEN"
 #endif
 
+#ifdef WS_CHANNEL_1
+    #define WS_CHANNEL TIM_CHANNEL_1
+#elif defined WS_CHANNEL_2
+    #define WS_CHANNEL TIM_CHANNEL_2
+#elif defined WS_CHANNEL_3
+    #define WS_CHANNEL TIM_CHANNEL_3
+#elif defined WS_CHANNEL_4
+    #define WS_CHANNEL TIM_CHANNEL_4
+#elif defined WS_CHANNEL_5
+    #define WS_CHANNEL TIM_CHANNEL_5
+#elif defined WS_CHANNEL_6
+    #define WS_CHANNEL TIM_CHANNEL_6
+#else
+    #pragma message "NO CHANNEL CHOSEN"
+#endif
+
 #define pwm_zero (CP* 32 / 100)     // 32% time +-12%
 #define pwm_one (CP * 64 / 100)     // 64% time +-12%
 #define reset_signal 224

@@ -20,4 +20,11 @@
 #define WS_TIM_15
 //#define WS_TIM_16
 
+#define WS_CHANNEL_1
+//#define WS_CHANNEL_2
+//#define WS_CHANNEL_3
+//#define WS_CHANNEL_4
+//#define WS_CHANNEL_5
+//#define WS_CHANNEL_6
+
 #define user_leds 24

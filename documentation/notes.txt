@@ -1,5 +1,0 @@
-git init
-git submodule add https://github.com/MaciejZb66/ws281x.git
-reload to workspace
-file/properties/cc++general/paths and symbols/includes/gnu c/include directory
-file/properties/cc++general/paths and symbols/source location/add folder

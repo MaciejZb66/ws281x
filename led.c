@@ -149,12 +149,12 @@ void WS281x_send_data(void){
 		pwm_Data[counter] = 0;
 		counter++;
 	}
-	HAL_TIM_PWM_Start_DMA(WS_tim, TIM_CHANNEL_1, (uint32_t*)pwm_Data, counter);
+	HAL_TIM_PWM_Start_DMA(WS_tim, WS_CHANNEL, (uint32_t*)pwm_Data, counter);
 	while(!dataflag){};
 	dataflag = 0;
 }
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-    HAL_TIM_PWM_Stop_DMA(WS_tim, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Stop_DMA(WS_tim, WS_CHANNEL);
     dataflag = 1;
 }
