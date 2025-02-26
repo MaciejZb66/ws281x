@@ -77,9 +77,15 @@
 #define pwm_one (CP * 64 / 100)     // 64% time +-12%
 #define reset_signal 224
 
+typedef struct 
+{
+	uint8_t LED_info[user_leds][4];
+	uint16_t PWM_Data[reset_signal + (24 * user_leds)];	
+}WS281x_data;
 
-void WS281x_set_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
-void WS281x_set_gamma_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
-void WS281x_set_gamma_bright_leds(uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
-void WS281x_set_hsv_leds(uint8_t led, uint8_t hue, uint8_t saturation, uint8_t value);
-void WS281x_send_data(void);
+void WS281x_init(void);
+void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
+void WS281x_set_gamma_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
+void WS281x_set_gamma_bright_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
+void WS281x_set_hsv_leds(WS281x_data* led, uint8_t led_num, uint8_t hue, uint8_t saturation, uint8_t value);
+void WS281x_send_data(WS281x_data* led);
