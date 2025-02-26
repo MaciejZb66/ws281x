@@ -80,10 +80,13 @@
 typedef struct 
 {
 	uint8_t LED_info[user_leds][4];
-	uint16_t PWM_Data[reset_signal + (24 * user_leds)];	
+	uint16_t PWM_Data[reset_signal + (24 * user_leds)];
+    TIM_HandleTypeDef* timer;
+    uint32_t channel;
+    uint8_t dataflag;
 }WS281x_data;
 
-void WS281x_init(void);
+void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel);
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_bright_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);

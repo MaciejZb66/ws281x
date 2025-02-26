@@ -56,12 +56,11 @@ const uint8_t reverse_min_gamma8[] = {
 	249, 250, 250, 250, 251, 251, 251, 252, 252, 253, 253, 253, 254, 254, 254, 255,
 };
 
-WS281x_data LED[2]={0};
+WS281x_data LED[OUTPUTS]={0};
 
-uint8_t dataflag;
-
-void WS281x_init(void){
-
+void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel){
+		led->timer = htim;
+		led->channel = t_channel;
 }
 
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
@@ -153,12 +152,18 @@ void WS281x_send_data(WS281x_data* led){
 		led->PWM_Data[counter] = 0;
 		counter++;
 	}
-	HAL_TIM_PWM_Start_DMA(WS_tim, WS_CHANNEL, (uint32_t*)led.PWM_Data, counter);
-	while(!dataflag){};
-	dataflag = 0;
+	HAL_TIM_PWM_Start_DMA(led->timer, led->channel, (uint32_t*)led->PWM_Data, counter);
+	while(!(led->dataflag)){};
+	led->dataflag = 0;
 }
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-    HAL_TIM_PWM_Stop_DMA(WS_tim, WS_CHANNEL);
-    dataflag = 1;
+	for(int i = 0; i < OUTPUTS; i++){
+		if (htim == LED[i]->timer)
+		{
+			HAL_TIM_PWM_Stop_DMA(LED[i]->timer, LED[i]->channel);
+    		LED[i].dataflag = 1;
+		}		
+	}
+    
 }
