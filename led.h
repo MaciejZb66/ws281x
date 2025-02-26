@@ -36,41 +36,19 @@
 #endif
 
 #ifdef WS_TIM_1
-    #define WS_tim &htim1
 	#define CP htim1.Init.Period
 #elif defined WS_TIM_2
-    #define WS_tim &htim2
 	#define CP htim2.Init.Period
 #elif defined WS_TIM_3
-    #define WS_tim &htim3
 	#define CP htim3.Init.Period
 #elif defined WS_TIM_4
-    #define WS_tim &htim4
 	#define CP htim4.Init.Period
 #elif defined WS_TIM_15
-    #define WS_tim &htim15
 	#define CP htim15.Init.Period
 #elif defined WS_TIM_16
-    #define WS_tim &htim16
 	#define CP htim16.Init.Period
 #else
     #pragma message "NO TIMER CHOSEN"
-#endif
-
-#ifdef WS_CHANNEL_1
-    #define WS_CHANNEL TIM_CHANNEL_1
-#elif defined WS_CHANNEL_2
-    #define WS_CHANNEL TIM_CHANNEL_2
-#elif defined WS_CHANNEL_3
-    #define WS_CHANNEL TIM_CHANNEL_3
-#elif defined WS_CHANNEL_4
-    #define WS_CHANNEL TIM_CHANNEL_4
-#elif defined WS_CHANNEL_5
-    #define WS_CHANNEL TIM_CHANNEL_5
-#elif defined WS_CHANNEL_6
-    #define WS_CHANNEL TIM_CHANNEL_6
-#else
-    #pragma message "NO CHANNEL CHOSEN"
 #endif
 
 #define pwm_zero (CP* 32 / 100)     // 32% time +-12%
