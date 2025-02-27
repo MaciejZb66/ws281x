@@ -37,6 +37,11 @@
 
 #define reset_signal 224
 
+typedef enum{
+    send_by_TIMER,
+    send_by_SPI
+}send_type;
+
 typedef struct
 {
     TIM_HandleTypeDef* timer;
@@ -48,13 +53,22 @@ typedef struct
 
 typedef struct 
 {
+    SPI_HandleTypeDef* hspi;
+}spi_data;
+
+
+typedef struct 
+{
+    send_type type;
     uint16_t number_of_leds;
-	uint8_t LED_info[number_of_leds][4];
-	uint16_t PWM_Data[reset_signal + (24 * number_of_leds)];
+	uint8_t LED_info[user_leds][4];
+	uint16_t PWM_Data[reset_signal + (24 * user_leds)];
+    spi_data spi;
     timer_data tim;
 }WS281x_data;
 
-void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel);
+void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number);
+void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi);
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_bright_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
