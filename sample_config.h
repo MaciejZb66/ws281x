@@ -13,13 +13,6 @@
 #define STM_FAMILY_L4
 //#define STM_FAMILY_L7
 
-//#define WS_TIM_1
-//#define WS_TIM_2
-//#define WS_TIM_3
-//#define WS_TIM_4
-#define WS_TIM_15
-//#define WS_TIM_16
-
 #define OUTPUTS 2
 
 #define user_leds 24

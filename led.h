@@ -35,33 +35,22 @@
     #pragma message "Unsupported STM family"
 #endif
 
-#ifdef WS_TIM_1
-	#define CP htim1.Init.Period
-#elif defined WS_TIM_2
-	#define CP htim2.Init.Period
-#elif defined WS_TIM_3
-	#define CP htim3.Init.Period
-#elif defined WS_TIM_4
-	#define CP htim4.Init.Period
-#elif defined WS_TIM_15
-	#define CP htim15.Init.Period
-#elif defined WS_TIM_16
-	#define CP htim16.Init.Period
-#else
-    #pragma message "NO TIMER CHOSEN"
-#endif
-
-#define pwm_zero (CP* 32 / 100)     // 32% time +-12%
-#define pwm_one (CP * 64 / 100)     // 64% time +-12%
 #define reset_signal 224
+
+typedef struct
+{
+    TIM_HandleTypeDef* timer;
+    uint16_t PWM_logic_zero;
+    uint16_t PWM_logic_one;
+    uint32_t channel;
+    uint8_t dataflag;
+}timer_data;
 
 typedef struct 
 {
 	uint8_t LED_info[user_leds][4];
 	uint16_t PWM_Data[reset_signal + (24 * user_leds)];
-    TIM_HandleTypeDef* timer;
-    uint32_t channel;
-    uint8_t dataflag;
+    timer_data tim;
 }WS281x_data;
 
 void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel);

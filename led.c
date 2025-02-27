@@ -61,6 +61,8 @@ WS281x_data LED[OUTPUTS]={0};
 void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel){
 	led->timer = htim;
 	led->channel = t_channel;
+	led->PWM_logic_zero = htim.Init.Period * 32 / 100;	// 32% time +-12%
+	led->PWM_logic_one = htim.Init.Period * 65 / 100;	// 64% time +-12%
 }
 
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
@@ -141,9 +143,9 @@ void WS281x_send_data(WS281x_data* led){
 		color = ((led->LED_info[i][1] << 8) | (led->LED_info[i][2]) | (led->LED_info[i][3] << 16));
 		for(int j = 23; j >= 0; j--){
 			if(color & (1 << j)){
-				led->PWM_Data[counter] = pwm_one;
+				led->PWM_Data[counter] = led->tim.PWM_logic_one;
 			}else{
-				led->PWM_Data[counter] = pwm_zero;
+				led->PWM_Data[counter] = led->tim.PWM_logic_zero;
 			}
 			counter++;
 		}
@@ -152,17 +154,17 @@ void WS281x_send_data(WS281x_data* led){
 		led->PWM_Data[counter] = 0;
 		counter++;
 	}
-	HAL_TIM_PWM_Start_DMA(led->timer, led->channel, (uint32_t*)led->PWM_Data, counter);
-	while(!(led->dataflag)){};
-	led->dataflag = 0;
+	HAL_TIM_PWM_Start_DMA(led->tim.timer, led->tim.channel, (uint32_t*)led->PWM_Data, counter);
+	while(!(led->tim.dataflag)){};
+	led->tim.dataflag = 0;
 }
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
 	for(int i = 0; i < OUTPUTS; i++){
-		if (htim == LED[i].timer)
+		if (htim == LED[i].tim.timer)
 		{
-			HAL_TIM_PWM_Stop_DMA(LED[i].timer, LED[i].channel);
-    		LED[i].dataflag = 1;
+			HAL_TIM_PWM_Stop_DMA(LED[i].tim.timer, LED[i].tim.timer);
+    		LED[i].tim.dataflag = 1;
 		}		
 	}
     
