@@ -48,8 +48,9 @@ typedef struct
 
 typedef struct 
 {
-	uint8_t LED_info[user_leds][4];
-	uint16_t PWM_Data[reset_signal + (24 * user_leds)];
+    uint16_t number_of_leds;
+	uint8_t LED_info[number_of_leds][4];
+	uint16_t PWM_Data[reset_signal + (24 * number_of_leds)];
     timer_data tim;
 }WS281x_data;
 

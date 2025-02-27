@@ -58,11 +58,12 @@ const uint8_t reverse_min_gamma8[] = {
 
 WS281x_data LED[OUTPUTS]={0};
 
-void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel){
+void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number){
 	led->tim.timer = htim;
 	led->tim.channel = t_channel;
-	led->tim.PWM_logic_zero = htim.Init.Period * 32 / 100;	// 32% time +-12%
-	led->tim.PWM_logic_one = htim.Init.Period * 65 / 100;	// 64% time +-12%
+	led->tim.PWM_logic_zero = htim->Init.Period * 32 / 100;	// 32% time +-12%, 400us
+	led->tim.PWM_logic_one = htim->Init.Period * 65 / 100;	// 64% time +-12%, 800us
+	led->number_of_leds = led_number;
 }
 
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
@@ -139,7 +140,7 @@ void WS281x_set_hsv_leds(WS281x_data* led, uint8_t led_num, uint8_t hue, uint8_t
 void WS281x_send_data(WS281x_data* led){
 	uint32_t color;
 	uint32_t counter = 0;
-	for(int i = 0; i < user_leds; i++){
+	for(int i = 0; i < led->number_of_leds; i++){
 		color = ((led->LED_info[i][1] << 8) | (led->LED_info[i][2]) | (led->LED_info[i][3] << 16));
 		for(int j = 23; j >= 0; j--){
 			if(color & (1 << j)){

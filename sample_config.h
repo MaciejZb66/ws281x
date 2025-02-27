@@ -15,4 +15,4 @@
 
 #define OUTPUTS 2
 
-#define user_leds 24
+//#define user_leds 24
