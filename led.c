@@ -59,10 +59,10 @@ const uint8_t reverse_min_gamma8[] = {
 WS281x_data LED[OUTPUTS]={0};
 
 void WS281x_init(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel){
-	led->timer = htim;
-	led->channel = t_channel;
-	led->PWM_logic_zero = htim.Init.Period * 32 / 100;	// 32% time +-12%
-	led->PWM_logic_one = htim.Init.Period * 65 / 100;	// 64% time +-12%
+	led->tim.timer = htim;
+	led->tim.channel = t_channel;
+	led->tim.PWM_logic_zero = htim.Init.Period * 32 / 100;	// 32% time +-12%
+	led->tim.PWM_logic_one = htim.Init.Period * 65 / 100;	// 64% time +-12%
 }
 
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
@@ -163,7 +163,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
 	for(int i = 0; i < OUTPUTS; i++){
 		if (htim == LED[i].tim.timer)
 		{
-			HAL_TIM_PWM_Stop_DMA(LED[i].tim.timer, LED[i].tim.timer);
+			HAL_TIM_PWM_Stop_DMA(LED[i].tim.timer, LED[i].tim.channel);
     		LED[i].tim.dataflag = 1;
 		}		
 	}
