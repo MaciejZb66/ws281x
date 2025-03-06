@@ -37,6 +37,9 @@
 
 #define reset_signal 224
 
+#define SPI_logic_zero 0b100 //boundrate 2.5Mbit/s, 0.4us high, 1.2us period
+#define SPI_logic_one 0b110  //boundrate 2.5Mbit/s, 0.8us high, 1.2us period
+
 typedef enum{
     send_by_TIMER,
     send_by_SPI
@@ -49,6 +52,7 @@ typedef struct
     uint16_t PWM_logic_one;
     uint32_t channel;
     uint8_t dataflag;
+    
 }timer_data;
 
 typedef struct 
@@ -62,7 +66,7 @@ typedef struct
     send_type type;
     uint16_t number_of_leds;
 	uint8_t LED_info[user_leds][4];
-	uint16_t PWM_Data[reset_signal + (24 * user_leds)];
+	uint16_t PWM_Data[reset_signal + (24 * user_leds)];    
     spi_data spi;
     timer_data tim;
 }WS281x_data;

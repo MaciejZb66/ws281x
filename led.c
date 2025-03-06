@@ -145,29 +145,49 @@ void WS281x_set_hsv_leds(WS281x_data* led, uint8_t led_num, uint8_t hue, uint8_t
 
 void WS281x_send_data(WS281x_data* led){
 	uint32_t color;
-	uint32_t counter = 0;
-	for(int i = 0; i < led->number_of_leds; i++){
-		color = ((led->LED_info[i][1] << 8) | (led->LED_info[i][2]) | (led->LED_info[i][3] << 16));
-		for(int j = 23; j >= 0; j--){
-			if(color & (1 << j)){
-				led->PWM_Data[counter] = led->tim.PWM_logic_one;
-			}else{
-				led->PWM_Data[counter] = led->tim.PWM_logic_zero;
+	
+	if(led->type == send_by_TIMER){
+		uint32_t counter = 0;
+		for(int i = 0; i < led->number_of_leds; i++){
+			color = ((led->LED_info[i][1] << 8) | (led->LED_info[i][2]) | (led->LED_info[i][3] << 16));
+			for(int j = 23; j >= 0; j--){
+				if(color & (1 << j)){
+					led->PWM_Data[counter] = led->tim.PWM_logic_one;
+				}else{
+					led->PWM_Data[counter] = led->tim.PWM_logic_zero;
+				}
+				counter++;
 			}
+		}
+		for(int i = 0; i < reset_signal; i++){
+			led->PWM_Data[counter] = 0;
 			counter++;
 		}
-	}
-	for(int i = 0; i < reset_signal; i++){
-		led->PWM_Data[counter] = 0;
-		counter++;
-	}
-	if(led->type == send_by_TIMER){
 		HAL_TIM_PWM_Start_DMA(led->tim.timer, led->tim.channel, (uint32_t*)led->PWM_Data, counter);
 		while(!(led->tim.dataflag)){};
 		led->tim.dataflag = 0;
 	}
-	if(led->type == send_by_SPI){
 
+	if(led->type == send_by_SPI){
+		for (int i = 0; i < led->number_of_leds; i++)
+		{
+			color = led->LED_info[i][2]<<16 | led->LED_info[i][1]<<8 | led->LED_info[i][3]; //bgr
+			uint8_t sendData[24];
+			uint8_t counter = 0;
+		
+			for (int j=23; j>=0; j--)
+			{
+				if (((color>>j)&0x01) == 1) 
+				{
+					sendData[counter++] = SPI_logic_one;
+				}else{
+					sendData[counter++] = SPI_logic_zero;
+				}
+				  
+			}		
+			HAL_SPI_Transmit(led->spi.hspi, sendData, 24, 1000);
+		}		
+		
 	}
 	
 }
