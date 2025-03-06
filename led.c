@@ -69,9 +69,10 @@ void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_chann
 }
 #endif
 #ifdef USING_SPI
-void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi){
+void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_number){
 	led->type = send_by_SPI;
 	led->spi.hspi = hspi;
+	led->number_of_leds = led_number;
 }
 #endif
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){

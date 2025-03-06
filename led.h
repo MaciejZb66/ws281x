@@ -42,8 +42,8 @@
 
 #define reset_signal 224
 
-#define SPI_logic_zero 0b100 //boundrate 2.5Mbit/s, 0.4us high, 1.2us period
-#define SPI_logic_one 0b110  //boundrate 2.5Mbit/s, 0.8us high, 1.2us period
+#define SPI_logic_zero 0b100000 
+#define SPI_logic_one 0b111000
 
 typedef enum{
     send_by_TIMER,
@@ -81,7 +81,7 @@ typedef struct
 #endif
 
 #ifdef USING_SPI
-	void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi);
+	void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_number);
 #endif
 
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
