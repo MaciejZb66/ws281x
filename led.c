@@ -58,6 +58,7 @@ const uint8_t reverse_min_gamma8[] = {
 
 WS281x_data LED[OUTPUTS]={0};
 
+#ifdef USING_TIMER
 void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number){
 	led->type = send_by_TIMER;
 	led->tim.timer = htim;
@@ -66,12 +67,13 @@ void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_chann
 	led->tim.PWM_logic_one = htim->Init.Period * 65 / 100;	// 64% time +-12%, 800us
 	led->number_of_leds = led_number;
 }
-
+#endif
+#ifdef USING_SPI
 void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi){
 	led->type = send_by_SPI;
 	led->spi.hspi = hspi;
 }
-
+#endif
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){
 	led->LED_info[led_num][0] = led_num;
 	led->LED_info[led_num][1] = red;

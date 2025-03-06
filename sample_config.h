@@ -1,5 +1,8 @@
 #pragma once
 
+#define USING_TIMER
+#define USING_SPI
+
 //#define STM_FAMILY_F0
 //#define STM_FAMILY_F1
 //#define STM_FAMILY_F4

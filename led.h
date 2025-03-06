@@ -1,7 +1,12 @@
 #pragma once
 #include <stdio.h>
 #include <stdint.h>
-#include "tim.h"
+#ifdef USING_TIMER
+	#include "tim.h"
+#endif
+#ifdef USING_SPI
+	#include "spi.h"
+#endif
 
 #ifndef WS_CONFIG
     #include "sample_config.h"
@@ -71,8 +76,14 @@ typedef struct
     timer_data tim;
 }WS281x_data;
 
-void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number);
-void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi);
+#ifdef USING_TIMER
+	void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number);
+#endif
+
+#ifdef USING_SPI
+	void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi);
+#endif
+
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue);
 void WS281x_set_gamma_bright_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
