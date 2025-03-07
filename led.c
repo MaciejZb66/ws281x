@@ -75,10 +75,13 @@ void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_num
 	if(hspi->Init.DataSize == SPI_DATASIZE_8BIT){
 		led->spi.SPI_logic_zero = (0b11000000 ^ 0xFF);
 		led->spi.SPI_logic_one  = (0b11111000 ^ 0xFF);
-	}else if(hspi->Init.DataSize == SPI_DATASIZE_6BIT){
+	}
+	#ifdef SPI_DATASIZE_6BIT
+	else if(hspi->Init.DataSize == SPI_DATASIZE_6BIT){
 		led->spi.SPI_logic_zero = (0b100000 ^ 0xFF);
 		led->spi.SPI_logic_one  = (0b111000 ^ 0xFF);
 	}	
+	#endif
 	led->spi.hspi = hspi;
 	led->number_of_leds = led_number;
 }
@@ -190,9 +193,9 @@ void WS281x_send_data(WS281x_data* led){
 			{
 				if (((color>>j)&0x01) == 1) 
 				{
-					sendData[counter++] = SPI_logic_one;
+					led->PWM_Data[counter] = led->tim.PWM_logic_one;
 				}else{
-					sendData[counter++] = SPI_logic_zero;
+					led->PWM_Data[counter] = led->tim.PWM_logic_zero;
 				}
 				  
 			}		
