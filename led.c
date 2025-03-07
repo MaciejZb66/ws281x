@@ -71,6 +71,14 @@ void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_chann
 #ifdef USING_SPI
 void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_number){
 	led->type = send_by_SPI;
+
+	if(hspi->Init.DataSize == SPI_DATASIZE_8BIT){
+		led->spi.SPI_logic_zero = (0b11000000 ^ 0xFF);
+		led->spi.SPI_logic_one  = (0b11111000 ^ 0xFF);
+	}else if(hspi->Init.DataSize == SPI_DATASIZE_6BIT){
+		led->spi.SPI_logic_zero = (0b100000 ^ 0xFF);
+		led->spi.SPI_logic_one  = (0b111000 ^ 0xFF);
+	}	
 	led->spi.hspi = hspi;
 	led->number_of_leds = led_number;
 }

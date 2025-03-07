@@ -1,15 +1,18 @@
 #pragma once
 #include <stdio.h>
 #include <stdint.h>
+
+#ifndef WS_CONFIG
+    #include "sample_config.h"
+#else
+	#include "ws_config.h"
+#endif
+
 #ifdef USING_TIMER
 	#include "tim.h"
 #endif
 #ifdef USING_SPI
 	#include "spi.h"
-#endif
-
-#ifndef WS_CONFIG
-    #include "sample_config.h"
 #endif
 
 #ifdef STM_FAMILY_F0
@@ -42,8 +45,6 @@
 
 #define reset_signal 224
 
-#define SPI_logic_zero 0b100000 
-#define SPI_logic_one 0b111000
 
 typedef enum{
     send_by_TIMER,
@@ -63,6 +64,9 @@ typedef struct
 typedef struct 
 {
     SPI_HandleTypeDef* hspi;
+    uint16_t SPI_logic_zero;
+    uint16_t SPI_logic_one;
+    
 }spi_data;
 
 
