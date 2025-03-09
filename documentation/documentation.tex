@@ -75,7 +75,7 @@
 	\tableofcontents
 	\newpage
 	\section{How to use}
-	\subsection{Required .ioc configuration}
+	\subsection{Required .ioc configuration (timer)}
 	Make sure you have these set in your .ioc file:
 	\begin{itemize}
 		\item In project manager tick \textit{Generate peripheral initialization as pair of '.c/.h' files per peripheral}
@@ -102,6 +102,24 @@
 			\label{fig:dma}
 		\end{figure}		
 	\end{minipage}
+	\subsection{Required .ioc configuration (SPI)}
+	\begin{minipage}{0.5\textwidth}
+	Make sure you have these set in your .ioc file:	
+	\begin{itemize}
+		\item In project manager tick \textit{Generate peripheral initialization as pair of '.c/.h' files per peripheral}
+		\item Choose your SPI and then mode: \textit{Half-Duplex Master}
+		\item Set \textit{Data Size} to 6 Bits (if not possible then set 8 Bits), MSB First
+		\item Set your \textit{Prescaler} to value which gives \textit{6-7MBits/s Baud Rate}, you may need to switch clock configuration
+	\end{itemize}	
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{SPI_config}
+			\caption{SPI configuration}
+			\label{fig:spiconfig}
+		\end{figure}
+	\end{minipage}	
 	\subsection{Adding library}
 	Just follow these steps:
 	\begin{enumerate}
@@ -150,14 +168,22 @@ git submodule add https://github.com/MaciejZb66/ws281x.git
 \end{lstlisting}
 To redefine configuration create your own configuration file. There must be defined:
 \begin{itemize}
+	\item using timer or SPI (can be both)
 	\item STM family
-	\item used timer
-	\item used channel of chosen timer
-	\item number of LEDs (WS drivers connected to LEDs)
+	\item number of outputs
+	\item maximum number of LEDs (WS drivers connected to LEDs)
 	\item \begin{lstlisting}[language=C]
 #define WS_CONFIG //required to exclude sample_config.h \end{lstlisting}
 	
 \end{itemize} 
+\subsection{Initialization}
+To initialize your chosen timer use function:
+\begin{lstlisting}[language=C]
+void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_channel, uint16_t led_number	\end{lstlisting}
+To initialize your chosen SPI use function:
+\begin{lstlisting}[language=C]
+void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_number)	\end{lstlisting}
+and give all required info. \texttt{WS281x\_data} is named LED and it's created as you define number of outputs. In both cases it's required to initialize once per output.
 	\section{Code description}
 	to be described later	
 \end{document}
