@@ -65,7 +65,12 @@ void WS281x_init_TIM(WS281x_data* led, TIM_HandleTypeDef* htim, uint32_t t_chann
 	led->tim.channel = t_channel;
 	led->tim.PWM_logic_zero = htim->Init.Period * 32 / 100;	// 32% time +-12%, 400us
 	led->tim.PWM_logic_one = htim->Init.Period * 65 / 100;	// 64% time +-12%, 800us
-	led->number_of_leds = led_number;
+	if(led_number < user_leds){
+		led->number_of_leds = led_number;
+	}else{
+		led->number_of_leds = user_leds;
+	}
+	
 }
 #endif
 #ifdef USING_SPI
@@ -83,7 +88,11 @@ void WS281x_init_SPI(WS281x_data* led, SPI_HandleTypeDef* hspi, uint16_t led_num
 	}	
 	#endif
 	led->spi.hspi = hspi;
-	led->number_of_leds = led_number;
+	if(led_number < user_leds){
+		led->number_of_leds = led_number;
+	}else{
+		led->number_of_leds = user_leds;
+	}
 }
 #endif
 void WS281x_set_leds(WS281x_data* led, uint8_t led_num, uint8_t red, uint8_t green, uint8_t blue){

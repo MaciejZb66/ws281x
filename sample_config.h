@@ -20,5 +20,7 @@
 
 	#define OUTPUTS 2
 
+	//#define FREERTOS
+
 	#define user_leds 24
 #endif
