@@ -2,14 +2,17 @@
 #include "effects.h"
 
 extern WS281x_data LED[OUTPUTS];
+extern const uint8_t gamma8[];
+extern const uint8_t reverse_max_gamma8[];
+extern const uint8_t reverse_min_gamma8[];
 
 void move_one_led_down(WS281x_data* led){
 	for(int i = 0; i <led->number_of_leds; i++)
 	{
 		if(i != 0){
-			WS281x_set_leds(i,led->LED_info[i - 1][1], led->LED_info[i - 1][2], led->LED_info[i - 1][3]);
+			WS281x_set_leds(led, i, led->LED_info[i - 1][1], led->LED_info[i - 1][2], led->LED_info[i - 1][3]);
 		}else{
-			WS281x_set_leds(i, led->LED_info[user_leds - 1][1],led->LED_info[user_leds - 1][2],led->LED_info[user_leds - 1][3]);
+			WS281x_set_leds(led, i, led->LED_info[user_leds - 1][1],led->LED_info[user_leds - 1][2],led->LED_info[user_leds - 1][3]);
 		}
 	}
 }
