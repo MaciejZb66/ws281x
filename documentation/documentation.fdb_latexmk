@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1742889911.75674 "/home/maciej/Dokumenty/STM32/ws281x/documentation/documentation.tex" "documentation.pdf" "documentation" 1742889912.98444 0
+["pdflatex"] 1742890975.66065 "/home/maciej/Dokumenty/STM32/ws281x/documentation/documentation.tex" "documentation.pdf" "documentation" 1742890977.1591 0
   "/etc/texmf/web2c/texmf.cnf" 1726851989.60516 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/maciej/Dokumenty/STM32/ws281x/documentation/documentation.tex" 1742889910.39573 7063 3497f83a2bc5a6de32aac49812b60484 ""
+  "/home/maciej/Dokumenty/STM32/ws281x/documentation/documentation.tex" 1742890975.40329 7064 4d39f22bf3cf534abab0804d6591b45f ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/pl/plmi.enc" 1136849721 2005 f094775651a1386335c158fb632529f1 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -143,10 +143,10 @@
   "Properties2.png" 1740498840.07796 52601 04e50402b237904fbc09bad61fdd93b8 ""
   "SPI_config.png" 1741526934.96546 40948 a032ed097f31708402e343f06c8843a8 ""
   "dma.png" 1740494173.14737 26192 5051a604f88f3e140328687933693d35 ""
-  "documentation.aux" 1742889912.86396 2265 9f51a30da18379feefe9c9cc3a68f87d "pdflatex"
-  "documentation.out" 1742889912.86496 1203 75f37ddf123a564b2177eab9eacc867e "pdflatex"
-  "documentation.tex" 1742889910.39573 7063 3497f83a2bc5a6de32aac49812b60484 ""
-  "documentation.toc" 1742889912.86596 684 c1a2cc3367d40b8f328484c70e9da493 "pdflatex"
+  "documentation.aux" 1742890977.02728 2265 9f51a30da18379feefe9c9cc3a68f87d "pdflatex"
+  "documentation.out" 1742890977.02828 1203 75f37ddf123a564b2177eab9eacc867e "pdflatex"
+  "documentation.tex" 1742890975.40329 7064 4d39f22bf3cf534abab0804d6591b45f ""
+  "documentation.toc" 1742890977.02828 684 c1a2cc3367d40b8f328484c70e9da493 "pdflatex"
   "separatedfiles.png" 1740493362.7617 41526 210469651107b63378808136cbbb3b36 ""
   (generated)
   "documentation.aux"
