@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#ifndef WS_CONFIG
-    #include "sample_config.h"
+#if __has_include("ws_config.h")
+    #include "ws_config.h"
 #else
-	#include "ws_config.h"
+    #include "sample_config.h"
 #endif
 
 #ifdef USING_TIMER
@@ -15,32 +15,32 @@
 	#include "spi.h"
 #endif
 
-#ifdef STM_FAMILY_F0
+#if __has_include("stm32f0xx_hal.h")
     #include "stm32f0xx_hal.h"
-#elif defined STM_FAMILY_F1
+#elif __has_include("stm32f1xx_hal.h")
     #include "stm32f1xx_hal.h"
-#elif defined STM_FAMILY_F4
+#elif __has_include("stm32f4xx_hal.h")
     #include "stm32f4xx_hal.h"
-#elif defined STM_FAMILY_F7
+#elif __has_include("stm32f7xx_hal.h")
     #include "stm32f7xx_hal.h"
-#elif defined STM_FAMILY_G0
+#elif __has_include("stm32g0xx_hal.h")
     #include "stm32g0xx_hal.h"
-#elif defined STM_FAMILY_G1
+#elif __has_include("stm32g1xx_hal.h")
     #include "stm32g1xx_hal.h"
-#elif defined STM_FAMILY_G4
+#elif __has_include("stm32g4xx_hal.h")
     #include "stm32g4xx_hal.h"
-#elif defined STM_FAMILY_G7
+#elif __has_include("stm32g7xx_hal.h")
     #include "stm32g7xx_hal.h"
-#elif defined STM_FAMILY_L0
+#elif __has_include("stm32l0xx_hal.h")
     #include "stm32l0xx_hal.h"
-#elif defined STM_FAMILY_L1
+#elif __has_include("stm32l1xx_hal.h")
     #include "stm32l1xx_hal.h"
-#elif defined STM_FAMILY_L4
+#elif __has_include("stm32l4xx_hal.h")
     #include "stm32l4xx_hal.h"
-#elif defined STM_FAMILY_L7
+#elif __has_include("stm32l7xx_hal.h")
     #include "stm32l7xx_hal.h"
 #else
-    #pragma message "Unsupported STM family"
+    #pragma message "No HAL driver found"
 #endif
 
 #define reset_signal 224
